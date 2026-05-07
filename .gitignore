@@ -1,0 +1,21 @@
+# Python Cache
+__pycache__/
+*.py[cod]
+*.class
+*.so
+
+# Banco de Dados
+*.db
+*.sqlite3
+
+# Documentação de Controle Local (Master/Shadow)
+Controle_de_estoque_Master.md
+Mapa_de_Arquivos.md
+.skills/
+
+# Arquivos gerados
+qrcodes/
+
+# Ambientes virtuais
+.venv/
+venv/
