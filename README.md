@@ -21,12 +21,26 @@ erDiagram
     FORNECEDOR ||--o{ PRODUTO : "fornece (1:N)"
     PRODUTO ||--o{ MOVIMENTACAO : "registra"
     PRODUTO ||--o{ ESTRUTURA_ARMAZENAMENTO : "localizado em"
-    PRODUTO }o--o{ FORNECEDOR : "pode ter vários (N:N)"
+    PRODUTO ||--o{ PRODUTO_FORNECEDOR : "tem"
+    FORNECEDOR ||--o{ PRODUTO_FORNECEDOR : "fornece"
 
     USUARIO {
         int id PK
         string login
         string nivel_acesso
+    }
+
+    CATEGORIA {
+        int id PK
+        string nome
+    }
+
+    FORNECEDOR {
+        int id PK
+        string nome
+        string cnpj
+        string email
+        string telefone
     }
 
     PRODUTO {
@@ -36,13 +50,29 @@ erDiagram
         float valor_unitario
         float preco_custo
         string localizacao
+        int id_categoria FK
+    }
+
+    ESTRUTURA_ARMAZENAMENTO {
+        int id PK
+        string prateleira
+        int caixa
+        int ocupacao
+        int capacidade_max
+        int produto_codigo FK
     }
 
     MOVIMENTACAO {
         int id PK
         string tipo
         int quantidade
+        int codigo_produto FK
         datetime data_hora
+    }
+
+    PRODUTO_FORNECEDOR {
+        int produto_codigo FK
+        int fornecedor_id FK
     }
 ```
 
