@@ -1,4 +1,4 @@
-# 📦 StockMaster - Controle de Estoque Inteligente (v2.2)
+# StockMaster - Controle de Estoque Inteligente
 
 Sistema de gestão de estoque desenvolvido em Python/Flask, focado em alta usabilidade, inteligência operacional e alocação dinâmica de armazenamento.
 
