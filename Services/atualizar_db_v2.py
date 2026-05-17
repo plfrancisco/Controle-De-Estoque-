@@ -1,10 +1,20 @@
+# =================================================================
+# SCRIPT DE MANUTENÇÃO: atualizar_db_v2.py
+# Responsabilidade: Migração e evolução do esquema do banco de dados
+# =================================================================
+
 from Services.database import conectaBD
 
 def atualizar_esquema():
+    """
+    Adiciona novas colunas e tabelas necessárias para as versões mais
+    recentes do sistema sem apagar os dados existentes.
+    """
     conexao = conectaBD()
     cursor = conexao.cursor()
     
-    # Adicionando colunas de Localização e Preço de Custo se não existirem
+    # Bloco 1: Evolução da Tabela Produto
+    # Tenta adicionar as colunas. O 'try/except' evita erro se a coluna já existir.
     try:
         cursor.execute("ALTER TABLE produto ADD COLUMN localizacao TEXT")
     except: pass
@@ -13,8 +23,10 @@ def atualizar_esquema():
         cursor.execute("ALTER TABLE produto ADD COLUMN preco_custo REAL")
     except: pass
 
-    # Criando tabela de categorias se não existir (para o menu dinâmico)
+    # Bloco 2: Criação de Tabelas Auxiliares
     cursor.execute("CREATE TABLE IF NOT EXISTS categorias_log (nome TEXT UNIQUE)")
+    
+    # Seed de Categorias Iniciais
     categorias = ['Eletrônicos', 'Ferramentas', 'Limpeza', 'Escritório', 'Outros']
     for cat in categorias:
         try:
@@ -23,7 +35,7 @@ def atualizar_esquema():
 
     conexao.commit()
     conexao.close()
-    print("Esquema do banco de dados atualizado para o novo layout!")
+    print("Sistema: Esquema de banco de dados atualizado!")
 
 if __name__ == "__main__":
     atualizar_esquema()

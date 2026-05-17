@@ -1,10 +1,19 @@
+# =================================================================
+# SERVIÇO: Inicialização de Banco de Dados (inicializar_db.py)
+# Responsabilidade: Criar a estrutura de tabelas (Schema) do sistema
+# =================================================================
+
 from Services.database import conectaBD
 
 def criar_tabelas():
+    """
+    Executa comandos DDL (Data Definition Language) para criar as tabelas
+    se elas ainda não existirem no arquivo .db.
+    """
     conexao = conectaBD()
     cursor = conexao.cursor()
     
-    # Tabela Usuario
+    # Bloco 1: Gestão de Acesso
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS usuario (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -14,7 +23,7 @@ def criar_tabelas():
     )
     """)
 
-    # Tabela Categoria
+    # Bloco 2: Apoio e Classificação
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS categoria (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -22,7 +31,6 @@ def criar_tabelas():
     )
     """)
 
-    # Tabela Fornecedor
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS fornecedor (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -31,7 +39,7 @@ def criar_tabelas():
     )
     """)
 
-    # Tabela Produto
+    # Bloco 3: Core do Negócio (Produtos e Estoque)
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS produto (
         codigo INTEGER PRIMARY KEY,
@@ -46,7 +54,7 @@ def criar_tabelas():
     )
     """)
 
-    # Tabela Movimentacao
+    # Bloco 4: Histórico Operacional
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS movimentacao (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -60,16 +68,17 @@ def criar_tabelas():
     )
     """)
 
-    # Criar usuário admin padrão (senha simples para teste: 'admin123')
+    # Bloco 5: Configuração Inicial (Seed Data)
     try:
         cursor.execute("INSERT INTO usuario (login, senha, nivel_acesso) VALUES (?, ?, ?)", 
                        ('admin', 'admin123', 'ADMIN'))
     except:
-        pass # Usuário já existe
+        pass # Ignora se o admin já estiver cadastrado
 
     conexao.commit()
     conexao.close()
-    print("Banco de dados e tabelas configurados com sucesso!")
+    print("Sistema: Tabelas configuradas com sucesso!")
 
+# Permite rodar este script diretamente via terminal para resetar/configurar o banco
 if __name__ == "__main__":
     criar_tabelas()

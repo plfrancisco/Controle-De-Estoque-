@@ -1,99 +1,74 @@
-# StockMaster - Controle de Estoque Inteligente
+# 📦 Inventory Pro - Controle de Estoque Inteligente (v6.0)
 
-Sistema de gestão de estoque desenvolvido em Python/Flask, focado em alta usabilidade, inteligência operacional e alocação dinâmica de armazenamento.
+Sistema de gestão de estoque desenvolvido em Python com **Streamlit**, focado em alta usabilidade, análise estratégica de dados e gestão física de almoxarifado.
 
 ## 🚀 Funcionalidades Principais
 
-*   **Dashboard Estratégico:** Visão 360° com KPIs de Lucro Potencial, Saúde do Estoque, Dias de Suprimento e Ocupação do Armazém.
-*   **Movimentação Inteligente:** Registro de Entradas e Saídas com **Autocomplete** e preview em tempo real.
-*   **Alocação Automática:** Gerenciamento de 450 posições (Prateleiras/Caixas) com alocação automática de itens (limite de 10 por caixa).
-*   **Inteligência de Reabastecimento:** Sugestão de compra baseada na média de consumo diário dos últimos 30 dias.
-*   **Auditoria Completa:** Histórico detalhado de todas as operações com filtros dinâmicos.
-*   **Relatórios e Exportação:** Auditoria de inventário com exportação para CSV e suporte a Impressão/PDF.
+*   **Dashboard Estratégico:** Visão analítica com KPIs financeiros, Curva ABC e acompanhamento de saúde do estoque.
+*   **Gestão de Almoxarifado:** Controle físico de prateleiras e caixas com alocação dinâmica.
+*   **Relatórios Consolidados:** Unificação de dados de inventário e movimentações com exportação para Excel.
+*   **Alertas Críticos:** Sistema de notificação expansível na sidebar para itens abaixo do estoque mínimo.
+*   **Segurança e Acesso:** Controle de sessão e autenticação de usuários.
 
-## 📊 Arquitetura do Banco de Dados (MER)
+## 📊 Arquitetura do Banco de Dados (DER)
 
-O sistema utiliza um banco de dados SQLite modelado para garantir integridade e rastreabilidade.
+O sistema utiliza um banco de dados SQLite robusto. Para detalhes completos, consulte o [MER_Diagrama.md](./MER_Diagrama.md).
 
 ```mermaid
 erDiagram
     USUARIO ||--o{ MOVIMENTACAO : "realiza"
-    CATEGORIA ||--o{ PRODUTO : "pertence"
-    FORNECEDOR ||--o{ PRODUTO : "fornece"
-    PRODUTO ||--o{ MOVIMENTACAO : "sofre"
-    PRODUTO ||--o{ ESTRUTURA_ARMAZENAMENTO : "armazenado em"
+    CATEGORIA ||--o{ PRODUTO : "classifica"
+    FORNECEDOR ||--o{ PRODUTO : "fornece (1:N)"
+    PRODUTO ||--o{ MOVIMENTACAO : "registra"
+    PRODUTO ||--o{ ESTRUTURA_ARMAZENAMENTO : "localizado em"
+    PRODUTO }o--o{ FORNECEDOR : "pode ter vários (N:N)"
 
     USUARIO {
         int id PK
         string login
-        string senha
         string nivel_acesso
-    }
-
-    CATEGORIA {
-        int id PK
-        string nome
-    }
-
-    FORNECEDOR {
-        int id PK
-        string nome
-        string contato
     }
 
     PRODUTO {
         int codigo PK
         string descricao
         int quantidade
-        int quantidade_minima
         float valor_unitario
         float preco_custo
         string localizacao
-        int id_categoria FK
-        int id_fornecedor FK
     }
 
     MOVIMENTACAO {
         int id PK
         string tipo
         int quantidade
-        int codigo_produto FK
-        int id_usuario FK
         datetime data_hora
-    }
-
-    ESTRUTURA_ARMAZENAMENTO {
-        int id PK
-        string prateleira
-        int caixa
-        int ocupacao
-        int capacidade_max
-        int produto_codigo FK
     }
 ```
 
 ## 🛠️ Tecnologias Utilizadas
 
-*   **Backend:** Python 3 + Flask
+*   **Linguagem:** Python 3.10+
+*   **Interface:** Streamlit
 *   **Banco de Dados:** SQLite
-*   **Frontend:** HTML5, CSS3 (Untitled UI Design System), JavaScript Vanilla
-*   **Gráficos:** Chart.js
+*   **Análise de Dados:** Pandas & Plotly
+*   **Estilização:** CSS Customizado integrado ao Streamlit
 
 ## 🏁 Como Iniciar
 
 1. Instale as dependências:
    ```bash
-   pip install flask
+   pip install -r requirements.txt
    ```
-2. Inicialize o banco de dados (se necessário):
+2. Inicialize ou atualize o banco de dados:
    ```bash
    python Services/inicializar_db.py
+   python Services/atualizar_db_v2.py
    ```
-3. Execute o servidor:
+3. Execute a aplicação:
    ```bash
-   python app_flask.py
+   streamlit run main.py
    ```
-4. Acesse em seu navegador: `http://localhost:5000`
 
 ---
 *Desenvolvido como projeto de Laboratório de Estudos - 2026*
