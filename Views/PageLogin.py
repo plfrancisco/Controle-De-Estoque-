@@ -1,6 +1,6 @@
 # =================================================================
 # VIEW: PageLogin
-# Responsabilidade: Interface de Autenticação (Sofia Edition - Fix)
+# Responsabilidade: Interface de Autenticação (Corporate Edition - Fix)
 # =================================================================
 
 import streamlit as st

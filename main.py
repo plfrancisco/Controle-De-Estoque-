@@ -145,7 +145,7 @@ st.markdown("""
         margin-bottom: 10px;
     }
 
-    /* Executive Data Grid (Sofia Edition) */
+    /* Executive Data Grid (Corporate Edition) */
     /* Remove bordas globais de tabelas nativas do Streamlit e aplica Glass Hover */
     [data-testid="stTable"], [data-testid="stDataFrame"] {
         border: none !important;

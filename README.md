@@ -1,8 +1,8 @@
 # 📦 Inventory. — Executive Asset Management (v10.0 Corporate)
 
-Sistema de gestão de ativos e controle de estoque de alta performance, desenvolvido em Python com **Streamlit**. O **Inventory.** (v10.0 Sofia Edition) redefine a experiência de BI com uma interface executiva baseada em Glassmorphism e Organic Flow.
+Sistema de gestão de ativos e controle de estoque de alta performance, desenvolvido em Python com **Streamlit**. O **Inventory.** (v10.0 Corporate Edition) redefine a experiência de BI com uma interface executiva baseada em Glassmorphism e Organic Flow.
 
-## 💎 Design System: Sofia Edition
+## 💎 Design System: Corporate Edition
 
 O projeto utiliza um design system proprietário focado em sobriedade e clareza:
 *   **The Glass Metrics:** KPIs envoltos em Glassmorphism para leitura rápida de ativos.
@@ -87,7 +87,7 @@ erDiagram
 ## 🛠️ Tecnologias de Elite
 
 *   **Core:** Python 3.10+
-*   **Engine UI:** Streamlit (Sofia Edition)
+*   **Engine UI:** Streamlit (Corporate Edition)
 *   **Data Science:** Pandas & Plotly (BI Dashboards)
 *   **Database:** SQLite Relacional (Engine v10.0)
 

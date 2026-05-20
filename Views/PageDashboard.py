@@ -1,6 +1,6 @@
 # =================================================================
 # VIEW: PageDashboard
-# Responsabilidade: Executive Intelligence Panel (Sofia Edition)
+# Responsabilidade: Executive Intelligence Panel (Corporate Edition)
 # =================================================================
 
 import streamlit as st

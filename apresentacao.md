@@ -5,7 +5,7 @@
 ---
 
 ## 🎯 A Filosofia do Sistema
-**Inventory.** não é apenas um controle de estoque, é uma ferramenta de **Inteligência de Negócios (BI) e Curadoria de Ativos**. Projetado com a estética "Sofia Edition" (Glassmorphism e Organic Flow), ele transforma dados complexos em uma experiência visual executiva e agradável.
+**Inventory.** não é apenas um controle de estoque, é uma ferramenta de **Inteligência de Negócios (BI) e Curadoria de Ativos**. Projetado com a estética "Corporate Edition" (Glassmorphism e Organic Flow), ele transforma dados complexos em uma experiência visual executiva e agradável.
 
 ---
 

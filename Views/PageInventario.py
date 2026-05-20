@@ -17,7 +17,7 @@ from Controllers.EstruturaController import listar_prateleiras, cadastrar_pratel
 from Models.Produto import Produto
 
 def exibir_pagina():
-    # 1. Título e Subtítulo Executivos (Estilo Sofia Edition)
+    # 1. Título e Subtítulo Executivos (Estilo Corporate Edition)
     st.markdown("<h1 style='color: #FFFFFF; font-weight: 700; font-size: 2.5rem; letter-spacing: -1.5px; margin-bottom: 0px;'>Ativos.</h1>", unsafe_allow_html=True)
     st.markdown("<p style='color: #64748B; font-size: 1.1rem; font-weight: 500;'>Controle de Inventário e Infraestrutura de Precisão</p>", unsafe_allow_html=True)
     
