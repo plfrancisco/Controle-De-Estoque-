@@ -1,18 +1,26 @@
-# 📦 Inventory Pro - Controle de Estoque Inteligente (v6.0)
+# 📦 Inventory. — Executive Asset Management (v10.0 Corporate)
 
-Sistema de gestão de estoque desenvolvido em Python com **Streamlit**, focado em alta usabilidade, análise estratégica de dados e gestão física de almoxarifado.
+Sistema de gestão de ativos e controle de estoque de alta performance, desenvolvido em Python com **Streamlit**. O **Inventory.** (v10.0 Sofia Edition) redefine a experiência de BI com uma interface executiva baseada em Glassmorphism e Organic Flow.
+
+## 💎 Design System: Sofia Edition
+
+O projeto utiliza um design system proprietário focado em sobriedade e clareza:
+*   **The Glass Metrics:** KPIs envoltos em Glassmorphism para leitura rápida de ativos.
+*   **Executive Data Grid:** Tabelas purificadas, sem bordas externas, com tipografia Mono para precisão decimal.
+*   **Organic Flow:** Componentes com raios de arredondamento suaves (20px a 35px), eliminando a rigidez industrial.
+*   **Shadow Palette:** Interface em tons de Azul Executivo e Dark Mode sóbrio.
 
 ## 🚀 Funcionalidades Principais
 
-*   **Dashboard Estratégico:** Visão analítica com KPIs financeiros, Curva ABC e acompanhamento de saúde do estoque.
-*   **Gestão de Almoxarifado:** Controle físico de prateleiras e caixas com alocação dinâmica.
-*   **Relatórios Consolidados:** Unificação de dados de inventário e movimentações com exportação para Excel.
-*   **Alertas Críticos:** Sistema de notificação expansível na sidebar para itens abaixo do estoque mínimo.
-*   **Segurança e Acesso:** Controle de sessão e autenticação de usuários.
+*   **Intelligence Panel (Dashboard):** Visão analítica profunda com KPIs de Lucro Potencial, Saúde do Estoque e Curva ABC (Pareto).
+*   **Auditoria de Ativos (Inventário):** Gestão de SKUs com alinhamento matemático e filtros avançados.
+*   **Fluxo de Operações (Compliance):** Registro rigoroso de movimentações com validação de estoque físico.
+*   **Gestão de Almoxarifado Dinâmica:** Controle de prateleiras e caixas via `EstruturaController`, permitindo expansão modular do espaço físico.
+*   **Compliance de Parceiros:** Gestão de fornecedores com integridade referencial protegida.
 
-## 📊 Arquitetura do Banco de Dados (DER)
+## 📊 Arquitetura de Dados
 
-O sistema utiliza um banco de dados SQLite robusto. Para detalhes completos, consulte o [MER_Diagrama.md](./MER_Diagrama.md).
+O sistema é alimentado por um banco de dados SQLite relacional, orquestrado pela **Engine v10.0**.
 
 ```mermaid
 erDiagram
@@ -76,13 +84,12 @@ erDiagram
     }
 ```
 
-## 🛠️ Tecnologias Utilizadas
+## 🛠️ Tecnologias de Elite
 
-*   **Linguagem:** Python 3.10+
-*   **Interface:** Streamlit
-*   **Banco de Dados:** SQLite
-*   **Análise de Dados:** Pandas & Plotly
-*   **Estilização:** CSS Customizado integrado ao Streamlit
+*   **Core:** Python 3.10+
+*   **Engine UI:** Streamlit (Sofia Edition)
+*   **Data Science:** Pandas & Plotly (BI Dashboards)
+*   **Database:** SQLite Relacional (Engine v10.0)
 
 ## 🏁 Como Iniciar
 
@@ -90,15 +97,14 @@ erDiagram
    ```bash
    pip install -r requirements.txt
    ```
-2. Inicialize ou atualize o banco de dados:
+2. Orquestre o Banco de Dados (Schema & Seed):
    ```bash
-   python Services/inicializar_db.py
-   python Services/atualizar_db_v2.py
+   python Services/database_engine.py
    ```
-3. Execute a aplicação:
+3. Inicie o Terminal de Operações:
    ```bash
    streamlit run main.py
    ```
 
 ---
-*Desenvolvido como projeto de Laboratório de Estudos - 2026*
+*Inventory. — Precision in every asset. (Laboratório de Estudos 2026)*
