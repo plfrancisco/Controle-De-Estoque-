@@ -6,8 +6,8 @@
 import streamlit as st
 
 def exibir_pagina():
-    st.markdown("<h1 style='color: #FF6B6B;'>Minha Conta</h1>", unsafe_allow_html=True)
-    st.markdown("Gerencie suas credenciais e preferências de acesso.")
+    st.markdown("<h1 style='color: #FFFFFF; font-weight: 700; font-size: 2.5rem; letter-spacing: -1.5px; margin-bottom: 0px;'>Perfil.</h1>", unsafe_allow_html=True)
+    st.markdown("<p style='color: #64748B; font-size: 1.1rem; font-weight: 500;'>Configurações de Auditoria e Segurança</p>", unsafe_allow_html=True)
     
     # -------------------------------------------------------------
     # 1. FORMULÁRIO DE SEGURANÇA
@@ -34,10 +34,9 @@ def exibir_pagina():
     # -------------------------------------------------------------
     # 2. SEÇÃO DE DESCONEXÃO (LOGOUT)
     # -------------------------------------------------------------
-    st.markdown("<div class='styled-card' style='border-left: 5px solid #FFB347;'>", unsafe_allow_html=True)
-    st.subheader("Encerrar Sessão")
+    st.markdown("<div style='margin-top: 40px;'></div>", unsafe_allow_html=True)
+    st.markdown("<h3 style='color: #F8FAFC; margin-bottom: 20px;'>Encerrar Sessão</h3>", unsafe_allow_html=True)
     st.write("Deseja sair do sistema com segurança?")
-    if st.button("🚪 Sair do Inventory Pro", type="secondary", use_container_width=True):
+    if st.button("Sair do Inventory.", type="secondary", use_container_width=True):
         st.session_state.autenticado = False
         st.rerun()
-    st.markdown("</div>", unsafe_allow_html=True)

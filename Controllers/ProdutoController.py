@@ -129,25 +129,80 @@ def buscar_produto_por_codigo(codigo):
         conexao.close()
 
 # -----------------------------------------------------------------
-# 5. CRUD: EXCLUSÃO E LIMPEZA DE REFERÊNCIAS
-# Garante a integridade referencial limpando o almoxarifado e o histórico.
+# 5. CRUD: EXCLUSÃO E RASTREABILIDADE
+# Garante a integridade limpando o estoque e registrando o motivo da saída.
 # -----------------------------------------------------------------
-def excluir_produto(codigo):
+def excluir_produto(codigo, motivo="Não informado"):
     conexao = conectaBD()
     cursor = conexao.cursor()
     try:
-        # 1. Libera as caixas ocupadas por este produto
+        # A. Backup dos dados básicos para o log antes da exclusão
+        cursor.execute("SELECT descricao FROM produto WHERE codigo = ?", (codigo,))
+        res = cursor.fetchone()
+        descricao = res[0] if res else "Desconhecido"
+
+        # B. Registro no Log de Auditoria
+        cursor.execute("""
+            INSERT INTO log_exclusao (produto_codigo, descricao_resumo, motivo)
+            VALUES (?, ?, ?)
+        """, (codigo, descricao, motivo))
+
+        # C. Limpeza de referências e exclusão física
         cursor.execute("UPDATE estrutura_armazenamento SET ocupacao = 0, produto_codigo = NULL WHERE produto_codigo = ?", (codigo,))
-        
-        # 2. Remove o histórico vinculado (Prevenção de Orfãos)
         cursor.execute("DELETE FROM movimentacao WHERE codigo_produto = ?", (codigo,))
-        
-        # 3. Remove o registro mestre
+        cursor.execute("DELETE FROM produto_fornecedor WHERE produto_codigo = ?", (codigo,))
         cursor.execute("DELETE FROM produto WHERE codigo = ?", (codigo,))
         
         conexao.commit()
         return True
-    except sqlite3.Error:
+    except sqlite3.Error as e:
+        print(f"Erro na exclusão: {e}")
+        return False
+    finally:
+        conexao.close()
+
+# -----------------------------------------------------------------
+# 6. CRUD: ATUALIZAÇÃO (UPDATE)
+# Permite alterar dados cadastrais e localização sem quebrar a integridade.
+# -----------------------------------------------------------------
+def atualizar_produto(codigo, descricao, qtd_min, v_venda, id_cat, v_custo):
+    conexao = conectaBD()
+    cursor = conexao.cursor()
+    try:
+        cursor.execute("""
+            UPDATE produto 
+            SET descricao = ?, quantidade_minima = ?, valor_unitario = ?, id_categoria = ?, preco_custo = ?
+            WHERE codigo = ?
+        """, (descricao, qtd_min, v_venda, id_cat, v_custo, codigo))
+        conexao.commit()
+        return True
+    except sqlite3.Error as e:
+        print(f"Erro ao atualizar produto: {e}")
+        return False
+    finally:
+        conexao.close()
+
+def atualizar_localizacao_produto(codigo, nova_prateleira):
+    """
+    Atualiza o nome da prateleira para todas as caixas onde o produto está alocado.
+    Note: A lógica de 'caixa' (ID) permanece a mesma, apenas o rótulo da prateleira muda.
+    """
+    conexao = conectaBD()
+    cursor = conexao.cursor()
+    try:
+        cursor.execute("""
+            UPDATE estrutura_armazenamento 
+            SET prateleira = ? 
+            WHERE produto_codigo = ?
+        """, (nova_prateleira, codigo))
+        
+        # Também atualiza o campo redundante na tabela produto para consistência na listagem
+        cursor.execute("UPDATE produto SET localizacao = ? WHERE codigo = ?", (nova_prateleira, codigo))
+        
+        conexao.commit()
+        return True
+    except sqlite3.Error as e:
+        print(f"Erro ao atualizar localização: {e}")
         return False
     finally:
         conexao.close()

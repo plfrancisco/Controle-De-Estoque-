@@ -59,3 +59,48 @@ def cadastrar_fornecedor(nome, cnpj, email, telefone):
         return False
     finally:
         conexao.close()
+
+def atualizar_fornecedor(id_forn, nome, cnpj, email, telefone):
+    """Atualiza os dados de um fornecedor existente."""
+    conexao = conectaBD()
+    cursor = conexao.cursor()
+    try:
+        cursor.execute("""
+            UPDATE fornecedor 
+            SET nome = ?, cnpj = ?, email = ?, telefone = ?, contato = ?
+            WHERE id = ?
+        """, (nome, cnpj, email, telefone, email, id_forn))
+        conexao.commit()
+        return True
+    except Exception as e:
+        print(f"Erro na atualização do fornecedor: {e}")
+        return False
+    finally:
+        conexao.close()
+
+def buscar_fornecedor_por_id(id_forn):
+    """Retorna os dados completos de um fornecedor."""
+    conexao = conectaBD()
+    cursor = conexao.cursor()
+    cursor.execute("SELECT * FROM fornecedor WHERE id = ?", (id_forn,))
+    res = cursor.fetchone()
+    conexao.close()
+    return res
+
+def excluir_fornecedor(id_forn):
+    """Remove um fornecedor do sistema, validando dependências."""
+    conexao = conectaBD()
+    cursor = conexao.cursor()
+    try:
+        # Verifica se há produtos vinculados a este fornecedor
+        cursor.execute("SELECT COUNT(*) FROM produto_fornecedor WHERE fornecedor_id = ?", (id_forn,))
+        if cursor.fetchone()[0] > 0:
+            return False, "Existem produtos vinculados a este fornecedor. Remova os vínculos antes de excluir."
+        
+        cursor.execute("DELETE FROM fornecedor WHERE id = ?", (id_forn,))
+        conexao.commit()
+        return True, "Fornecedor removido com sucesso."
+    except Exception as e:
+        return False, f"Erro técnico: {e}"
+    finally:
+        conexao.close()
